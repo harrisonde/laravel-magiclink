@@ -17,6 +17,10 @@ class MagicLinkServiceProvider extends ServiceProvider
             __DIR__.'/../config/magiclink.php' => config_path('magiclink.php'),
         ], 'config');
 
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => database_path('migrations')
+        ], 'migrations');
+
         if (MagicLink::$runsMigrations) {
             $this->loadMigrationsFrom(__DIR__ . '/../databases/migrations');
         }
