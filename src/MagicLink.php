@@ -18,6 +18,13 @@ class MagicLink extends Model
 
     protected $keyType = 'string';
 
+    /**
+     * Indicates if Magic link migrations will be run.
+     *
+     * @var bool
+     */
+    public static $runsMigrations = true;
+
     protected static function boot()
     {
         parent::boot();
@@ -27,6 +34,13 @@ class MagicLink extends Model
                 ? (string) \Ramsey\Uuid\Uuid::uuid4()
                 : (string) Str::uuid();
         });
+    }
+
+    public static function ignoreMigrations()
+    {
+        static::$runsMigrations = false;
+
+        return new static;
     }
 
     public function getActionAttribute($value)
